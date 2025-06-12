@@ -1,25 +1,23 @@
-import mangoose from 'mongoose';
+import mongoose from 'mongoose'; // ✅ Corrigé ici
 
-const userSchema = new mangoose.Schema({
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true
-    
+    unique: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
-    
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   }
-  
-},{
-  timestamps: true // Ajoute createdAt et updatedAt
+}, {
+  timestamps: true
 });
-const User = mangoose.model('User', userSchema);
+
+const User = mongoose.model('User', userSchema); // ✅ Corrigé ici aussi
 export default User;

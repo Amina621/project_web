@@ -2,11 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
+import authRoutes from './routes/auth.route.js';
 
 dotenv.config();
 
-// Connexion à MongoDB
-mongoose.connect(process.env.MONGO)
+// Connexion à MongoDB (sans options dépréciées)
+mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     console.log('Connected to MongoDB');
   })
@@ -16,13 +17,14 @@ mongoose.connect(process.env.MONGO)
 
 const app = express();
 
-// Middleware JSON (optionnel mais courant)
-app.use(express.json());
+app.use(express.json()); // Middleware pour parser le JSON dans les requêtes
 
-// Démarrage du serveur
-app.listen(3000, () => {
-  console.log('API server is running on http://localhost:3000');
-});
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 
-app.use('/api/users', userRoutes
-);
+// Démarrage du serveur (une seule fois)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`API server is running on http://localhost:${PORT}`);
+}
+);  
