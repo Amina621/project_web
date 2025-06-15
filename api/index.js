@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
-import './index.css';
+
 
 dotenv.config();
-
+console.log('MONGO_URL:', process.env.MONGO_URL);
 // Connexion à MongoDB (sans options dépréciées)
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
